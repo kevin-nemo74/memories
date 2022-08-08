@@ -20,6 +20,11 @@ let secret = process.env.SECRET;
 let MongoDBStore = require('connect-mongo');
 
 
+const post = require('./routes/posts');
+const commentsRoute = require('./routes/comments');
+const userRoutes = require('./routes/user');
+
+
 mongoose.connect("mongodb://localhost:27017/thoughtsCamp", { useNewUrlParser: true })
     .then(() => {
         console.log('database connected!! ');
@@ -82,6 +87,11 @@ app.get('/', (req, res) => {
 
 //ROUTES
 
+
+
+app.use('/', userRoutes);
+app.use('/posts', post);
+app.use('/posts/:id/comment', commentsRoute);
 
 
 app.all('*', (req, res, next) => {
