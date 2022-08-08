@@ -1,4 +1,4 @@
-const { postSchema, commentSchema } = require('./shemas');
+const { postSchema, commentSchema } = require('./schemas');
 let ExpressError = require('./utils/ExpressError');
 let Post = require('./models/posts');
 let Comment = require('./models/comments');
@@ -34,7 +34,7 @@ module.exports.isAuthor = async (req, res, next) => {
 }
 module.exports.isComAuthor = async (req, res, next) => {
     const { id, comId } = req.params;
-    let comment = await Comment.findById(comID);
+    let comment = await Comment.findById(comId);
     if (!comment.author.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to do that!');
         return res.redirect(`/posts/${id}`);

@@ -3,12 +3,12 @@ let Post = require('../models/posts');
 
 
 module.exports.index = async (req, res) => {
-    let posts = await Post.find({});
-    res.render('camps/index', { posts });
+    let posts = await Post.find({}).populate('author');;
+    res.render('posts/index', { posts });
 }
 
 
-module.exports.newCampForm = async (req, res) => {
+module.exports.newPostForm = async (req, res) => {
     res.render('posts/new');
 }
 
@@ -17,7 +17,7 @@ module.exports.postNewPost = async (req, res, next) => {
     let { title, body } = req.body;
     let newPost = new Post({
         title: title,
-        body: location,
+        body: body,
         author: req.user._id
     });
     await newPost.save();
@@ -25,20 +25,21 @@ module.exports.postNewPost = async (req, res, next) => {
     res.redirect(`/posts/${newPost._id}`);
 }
 
-// module.exports.showCampPage = async (req, res) => {
-//     const { id } = req.params;
-//     let camp = await Campground.findById(id).populate({
-//         path: 'reviews',
-//         populate: {
-//             path: 'author'
-//         }
-//     }).populate('author');
-//     if (!camp) {
-//         req.flash('error', 'Cannot find that campground');
-//         return res.redirect('/campgrounds');
-//     }
-//     res.render('camps/show', { camp });
-// }
+module.exports.showPostPage = async (req, res) => {
+    const { id } = req.params;
+    let post = await Post.findById(id).populate({
+        path: 'comments',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author');
+
+    if (!post) {
+        req.flash('error', 'Cannot find that memory');
+        return res.redirect('/posts');
+    }
+    res.render('posts/show', { post });
+}
 
 module.exports.editForm = async (req, res) => {
     const { id } = req.params;
@@ -70,6 +71,6 @@ module.exports.postEdittedPost = async (req, res) => {
 
 module.exports.deletePost = async (req, res) => {
     const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
+    await Post.findByIdAndDelete(id);
     res.redirect('/posts');
 }

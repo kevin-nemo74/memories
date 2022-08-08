@@ -1,0 +1,63 @@
+<% layout('layouts/boilerplate') %>
+
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%=post.title%>
+                    </h5>
+                    <p class="card-text">
+                        <%=post.body%>
+                    </p>
+                </div>
+
+                <% if(currentUser && post.author.equals(currentUser._id)) {%>
+                    <div class="card-body">
+                        <a class="card-link btn btn-info text-white" href="/posts/<%=post._id%>/edit">Edit</a>
+                        <form class="d-inline" action="/posts/<%=post._id%>?_method=DELETE" method="post">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+
+            </div>
+        </div>
+        <div class="col-6">
+
+            <% if(currentUser){ %>
+                <h2>Leave a comment</h2>
+                <form action="/posts/<%=post._id%>/comment" method="POST" class="validated-form mb-3" novalidate>
+
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Comment : </label>
+                        <textarea class="form-control" name="comment[body]" id="body" cols="30" rows="2"
+                            required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
+                <% } %>
+                    <% for(let rev of post.comments){ %>
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+
+                                <p class="card-text"><b>
+                                        <%=rev.author.username%>
+                                    </b>: <%= rev.body %>
+                                </p>
+                                <% if(currentUser && rev.author.equals(currentUser._id)) {%>
+                                    <form action="/posts/<%=post._id%>/comment/<%=rev._id%>?_method=DELETE"
+                                        method="post">
+                                        <button style="display: inline;" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <% } %>
+        </div>
+    </div>

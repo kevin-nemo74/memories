@@ -23,7 +23,7 @@ const postSchema = new Schema({
 
 
 
-post.post('findOneAndDelete', async function (doc) {
+postSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
         await comments.deleteMany({
             _id: {

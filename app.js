@@ -18,6 +18,7 @@ let mongoSanitize = require('express-mongo-sanitize');
 let dbUrl = process.env.dbUrl;
 let secret = process.env.SECRET;
 let MongoDBStore = require('connect-mongo');
+let User = require('./models/users')
 
 
 const post = require('./routes/posts');
