@@ -18,7 +18,8 @@ let mongoSanitize = require('express-mongo-sanitize');
 let dbUrl = process.env.dbUrl;
 let secret = process.env.SECRET;
 let MongoDBStore = require('connect-mongo');
-let User = require('./models/users')
+let User = require('./models/users');
+let Posts = require('./models/posts');
 
 
 const post = require('./routes/posts');
@@ -86,8 +87,12 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
-//ROUTES
 
+//ROUTES
+// app.post('/getPosts', async (req, res) => {
+//     let payload = req.body.payload;
+//     res.redirect('/posts?data=' + payload);
+// })
 
 
 app.use('/', userRoutes);

@@ -19,6 +19,8 @@ router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(posts.editForm));
 
 router.post('/:id/edit', isLoggedIn, isAuthor, catchAsync(posts.postEdittedPost));
 
+router.get('/:id/memories', isLoggedIn, catchAsync(posts.getMyMemories));
+
 router.delete('/:id', isAuthor, catchAsync(posts.deletePost));
 
 

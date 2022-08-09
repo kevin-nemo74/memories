@@ -1,3 +1,36 @@
+<style>
+    .cover-container {
+        max-width: 60vw;
+    }
+
+    .nav-link {
+        padding: 0.25rem 0;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.5);
+        margin-left: 1rem;
+        border-bottom: 0.25rem solid transparent;
+    }
+
+    .nav-link:hover {
+        color: rgba(255, 255, 255, 0.5);
+        border-bottom-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .nav-link.active {
+        color: white;
+        border-bottom-color: white;
+
+    }
+
+    .btn-secondary,
+    .btn-secondary:hover {
+        color: #333;
+        text-shadow: none;
+    }
+</style>
+
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
@@ -14,6 +47,7 @@
                     <a class="nav-link" href="/posts/new">Make Memory</a>
                 </li>
             </ul>
+
             <form class="d-flex" role="search">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <% if(!currentUser){ %>
@@ -24,10 +58,16 @@
                             <a class="nav-link" href="/register">Register</a>
                         </li>
                         <% }else{ %>
+
+                            <li class="nav-item">
+                                <a href='/posts/<%=currentUser._id%>/memories' class="nav-link">My memories</a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="/logout">Logout</a>
                             </li>
                             <% } %>
+
                 </ul>
             </form>
         </div>

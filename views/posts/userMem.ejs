@@ -2,23 +2,11 @@
 
 
 
+    <h1>My Memories</h1>
 
-    <h1>All posts</h1>
-
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-11">
-                <form class="d-flex mx-auto mt-4" role="search">
-                    <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
-                        aria-label="Search" onsubmit="sendData(this)">
-
-                </form>
-            </div>
-        </div>
-    </div> -->
     <div class="mb-3">
         <div class="row">
-            <% for(let camp of posts){ %>
+            <% for(let camp of memories){ %>
                 <div class='card col-md-4 my-4 mx-4' style="width: 22rem; text-align: center;" id="card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -27,11 +15,7 @@
                         <p class="card-text">
                             <%= camp.body %>
                         </p>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                <%= camp.author.username %>
-                            </small>
-                        </p>
+
                         <a href="/posts/<%=camp._id%>">View memory</a>
                     </div>
                 </div>
@@ -48,17 +32,5 @@
             const classe = `border-${colors[rn]}`;
             card[i].classList.add(classe);
         }
-
-        // function sendData(e) {
-        //     fetch('getPosts', {
-        //         method: "POST",
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({ payload: e.value })
-        //     })
-
-
-        // }
-
-
 
     </script>

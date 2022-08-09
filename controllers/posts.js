@@ -3,8 +3,21 @@ let Post = require('../models/posts');
 
 
 module.exports.index = async (req, res) => {
-    let posts = await Post.find({}).populate('author');;
+    let posts = await Post.find({}).populate('author');
+    // let data = req.query.data;
+
+    // // if (!data) {
+    // //     return res.render('posts/index', { posts });
+    // // }
+    // // console.log('after ! data')
+    // let search = await Post.find({
+    //     title: {
+    //         $regex: new RegExp('^' + data + '.*', 'i')
+    //     }
+    // });
+    // console.log(search)
     res.render('posts/index', { posts });
+
 }
 
 
@@ -73,4 +86,11 @@ module.exports.deletePost = async (req, res) => {
     const { id } = req.params;
     await Post.findByIdAndDelete(id);
     res.redirect('/posts');
+}
+
+
+module.exports.getMyMemories = async (req, res) => {
+    const { id } = req.params;
+    let memories = await Post.find({ author: id });
+    res.render('posts/userMem', { memories });
 }
