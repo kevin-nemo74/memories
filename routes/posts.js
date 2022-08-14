@@ -30,11 +30,13 @@ router.get('/:id/add', isLoggedIn, catchAsync(posts.addRequest));
 
 router.delete('/:id', isAuthor, catchAsync(posts.deletePost));
 
+router.get('/:id/friends', isLoggedIn, catchAsync(posts.friendsList));
+
 //get done 
 
-router.get('/:id/memories/requests/accept', isLoggedIn, catchAsync(posts.acceptReq));
+router.get('/:id/memories/requests/:acceptedId/accept', isLoggedIn, catchAsync(posts.acceptReq));
 
-router.get('/:id/memories/requests/deny', isLoggedIn, catchAsync(posts.denyReq));
+router.get('/:id/memories/requests/:deniedId/deny', isLoggedIn, catchAsync(posts.denyReq));
 
 router.get('/:id/remove', isLoggedIn, catchAsync(posts.removeFriend));
 

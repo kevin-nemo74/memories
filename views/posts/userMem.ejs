@@ -3,9 +3,9 @@
         <%= currentUser.username %>
     </h1>
 
-    <% if(currentUser.friendReq>0){ %>
+    <% if(currentUser.friendReqList.length>0){ %>
 
-        <h3 class="text-muted">Friend requests : <%= currentUser.friendReq %> <a
+        <h3 class="text-muted">Friend requests : <%= currentUser.friendReqList.length %> <a
                     href="/posts/<%=currentUser._id%>/memories/requests">View</a>
         </h3>
         <% console.log(currentUser) %>

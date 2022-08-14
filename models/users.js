@@ -14,10 +14,6 @@ let UserSchema = new Schema({
             ref: 'User'
         }
     ],
-    friendReq: {
-        type: Number,
-        default: 0
-    },
     friendReqList: [
         {
             type: Schema.Types.ObjectId,

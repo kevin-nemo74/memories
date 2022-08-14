@@ -3,14 +3,12 @@
 
     <h1>
         <%= user.username %>
-            <% if(user.friends.includes(currentUser._id)){ %>
-                <a href="/posts/<%=user._id%>/remove" class="btn btn-danger" style="float: right;">Remove Friend</a>
-                <% } else if(user.friendReqList.includes(currentUser._id)){ %>
-                    <a href="#" class="btn btn-success disabled" style="float: right;">Requested</a>
-                    <% }else{ %>
-                        <a href="/posts/<%=user._id%>/add" class="btn btn-success" style="float: right;">Add
-                            Friend</a>
-                        <% } %>
+            <% if(user.friendReqList.includes(currentUser._id)){ %>
+                <a href="#" class="btn btn-success disabled" style="float: right;">Requested</a>
+                <% }else{ %>
+                    <a href="/posts/<%=user._id%>/add" class="btn btn-success" style="float: right;">Add
+                        Friend</a>
+                    <% } %>
     </h1>
 
 

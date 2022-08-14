@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate') %>
+
+    <h2 class="text-muted">My friends</h2>
+
+
+    <div class="row mt-3"></div>
+    <% for(friend of user.friends){ %>
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= friend.username %>
+                            <a href="/posts/<%=friend._id%>/remove" class="btn btn-danger" style="float: right;">Remove
+                                Friend</a>
+                    </h5>
+
+                </div>
+            </div>
+
+
+            <% } %>
+
+        </div>
