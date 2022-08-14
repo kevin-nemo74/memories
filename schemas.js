@@ -25,7 +25,8 @@ const Joi = BaseJoi.extend(extension)
 
 module.exports.postSchema = Joi.object({
     title: Joi.string().required().escapeHTML(),
-    body: Joi.string().required().escapeHTML()
+    body: Joi.string().required().escapeHTML(),
+    privacy: Joi.string().required().escapeHTML()
 })
 
 

@@ -21,7 +21,21 @@ router.post('/:id/edit', isLoggedIn, isAuthor, catchAsync(posts.postEdittedPost)
 
 router.get('/:id/memories', isLoggedIn, catchAsync(posts.getMyMemories));
 
+router.get('/:id/memories/requests', isLoggedIn, catchAsync(posts.getRequests));
+
+router.get('/:id/page', isLoggedIn, catchAsync(posts.getPage));
+
+router.get('/:id/add', isLoggedIn, catchAsync(posts.addRequest));
+
+
 router.delete('/:id', isAuthor, catchAsync(posts.deletePost));
 
+//get done 
+
+router.get('/:id/memories/requests/accept', isLoggedIn, catchAsync(posts.acceptReq));
+
+router.get('/:id/memories/requests/deny', isLoggedIn, catchAsync(posts.denyReq));
+
+router.get('/:id/remove', isLoggedIn, catchAsync(posts.removeFriend));
 
 module.exports = router;

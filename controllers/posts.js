@@ -1,4 +1,5 @@
 let Post = require('../models/posts');
+let User = require('../models/users');
 
 
 
@@ -28,10 +29,12 @@ module.exports.newPostForm = async (req, res) => {
 
 module.exports.postNewPost = async (req, res, next) => {
     let { title, body } = req.body;
+    console.log(req.body)
     let newPost = new Post({
         title: title,
         body: body,
-        author: req.user._id
+        author: req.user._id,
+        privacy: req.body.privacy
     });
     await newPost.save();
     req.flash('success', 'Successfully made a new memory');
@@ -94,3 +97,55 @@ module.exports.getMyMemories = async (req, res) => {
     let memories = await Post.find({ author: id });
     res.render('posts/userMem', { memories });
 }
+
+module.exports.getRequests = async (req, res) => {
+    const { id } = req.params;
+    let user = await User.findById(id).populate('friendReqList');
+    res.render('posts/friendReq', { user });
+}
+
+module.exports.getPage = async (req, res) => {
+    const { id } = req.params;
+    let user = await User.findById(id);
+    let signedInUser = await User.findByUsername(req.session.passport.user);
+    if (signedInUser._id in user.friends) {
+        let posts = await Post.find({ author: user._id })
+        return res.render('posts/friendPage', { posts, user });
+    } else {
+        let post = await Post.find({ author: user._id });
+        let posts = [];
+        for (po of post) {
+            if (po.privacy == 'public') {
+                posts.push(po);
+            }
+        }
+
+        return res.render('posts/visitorPage', { user, posts });
+    }
+
+}
+
+
+module.exports.addRequest = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    let signedInUser = await User.findByUsername(req.session.passport.user);
+    user.friendReqList.push(signedInUser._id);
+    user.friendReq += 1;
+    await user.save();
+    res.redirect(`/posts/${user._id}/page`);
+}
+
+
+
+module.exports.removeFriend
+
+
+
+module.exports.acceptReq = async (req, res) => {
+    const { id } = req.params;
+
+}
+
+
+module.exports.denyReq

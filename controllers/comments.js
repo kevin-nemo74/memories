@@ -5,10 +5,22 @@ module.exports.postComment = async (req, res) => {
     const post = await Post.findById(req.params.id);
     const comment = new Comment(req.body.comment);
     comment.author = req.user._id;
+
+    //fix time
+    let currentdate = new Date();
+    let datetime = currentdate.getDate() + "/"
+        + (currentdate.getMonth() + 1)
+        + " "
+        + currentdate.getHours() + ":"
+        + currentdate.getMinutes()
+        ;
+
+    comment.time = datetime;
+
     post.comments.push(comment);
     await comment.save();
     await post.save();
-    console.log(post);
+    console.log(comment);
     res.redirect(`/posts/${post._id}`);
 }
 

@@ -7,7 +7,23 @@ let UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    friendReq: {
+        type: Number,
+        default: 0
+    },
+    friendReqList: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 });
 
 UserSchema.plugin(passportLocalMongoose);

@@ -17,7 +17,8 @@ const postSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    privacy: String
 }, opts);
 
 

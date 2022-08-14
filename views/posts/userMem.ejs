@@ -1,36 +1,45 @@
 <% layout('layouts/boilerplate') %>
+    <h1>
+        <%= currentUser.username %>
+    </h1>
 
+    <% if(currentUser.friendReq>0){ %>
 
+        <h3 class="text-muted">Friend requests : <%= currentUser.friendReq %> <a
+                    href="/posts/<%=currentUser._id%>/memories/requests">View</a>
+        </h3>
+        <% console.log(currentUser) %>
+            <% } %>
 
-    <h1>My Memories</h1>
+                <h3 class="text-muted">My Memories</h3>
 
-    <div class="mb-3">
-        <div class="row">
-            <% for(let camp of memories){ %>
-                <div class='card col-md-4 my-4 mx-4' style="width: 22rem; text-align: center;" id="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            To : <%= camp.title %>
-                        </h5>
-                        <p class="card-text">
-                            <%= camp.body %>
-                        </p>
+                <div class="mb-3">
+                    <div class="row">
+                        <% for(let camp of memories){ %>
+                            <div class='card col-md-4 my-4 mx-4' style="width: 20rem; text-align: center;" id="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        To : <%= camp.title %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%= camp.body %>
+                                    </p>
 
-                        <a href="/posts/<%=camp._id%>">View memory</a>
+                                    <a href="/posts/<%=camp._id%>">View memory</a>
+                                </div>
+                            </div>
+                            <%} %>
                     </div>
                 </div>
-                <%} %>
-        </div>
-    </div>
 
-    <script>
-        const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info']
+                <script>
+                    const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info']
 
-        let card = document.getElementsByClassName('card');
-        for (let i = 0; i < card.length; i++) {
-            let rn = Math.floor(Math.random() * 6) + 1;
-            const classe = `border-${colors[rn]}`;
-            card[i].classList.add(classe);
-        }
+                    let card = document.getElementsByClassName('card');
+                    for (let i = 0; i < card.length; i++) {
+                        let rn = Math.floor(Math.random() * 6) + 1;
+                        const classe = `border-${colors[rn]}`;
+                        card[i].classList.add(classe);
+                    }
 
-    </script>
+                </script>

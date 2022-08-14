@@ -2,7 +2,7 @@
 
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-md-12">
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -24,7 +24,7 @@
 
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-md-12">
 
             <% if(currentUser){ %>
                 <h2>Leave a comment</h2>
@@ -48,12 +48,16 @@
 
                                 <p class="card-text"><b>
                                         <%=rev.author.username%>
-                                    </b>: <%= rev.body %>
+                                    </b>: <%= rev.body %> <span style="float: right" class="text-muted">
+                                            <%=rev.time%>
+                                        </span>
                                 </p>
+
                                 <% if(currentUser && rev.author.equals(currentUser._id)) {%>
                                     <form action="/posts/<%=post._id%>/comment/<%=rev._id%>?_method=DELETE"
                                         method="post">
-                                        <button style="display: inline;" class="btn btn-sm btn-danger">Delete</button>
+                                        <button style="float: right;" class="btn btn-sm btn-danger"><i
+                                                class="fa-solid fa-trash-can"></i></button>
                                     </form>
                                     <% } %>
                             </div>
