@@ -58,17 +58,15 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item text-muted">
                                         <%=rev.time%>
+                                            <% if(currentUser && rev.author.equals(currentUser._id)) {%>
+                                                <form action="/posts/<%=post._id%>/comment/<%=rev._id%>?_method=DELETE"
+                                                    method="post">
+                                                    <button style="float: right;" class="btn btn-sm btn-danger"><i
+                                                            class="fa-solid fa-trash-can"></i></button>
+                                                </form>
+                                                <% } %>
                                     </li>
-                                    <% if(currentUser && rev.author.equals(currentUser._id)) {%>
-                                        <li class="list-group-item text-muted">
-                                            <form action="/posts/<%=post._id%>/comment/<%=rev._id%>?_method=DELETE"
-                                                method="post">
-                                                <button style="float: right;" class="btn btn-sm btn-danger"><i
-                                                        class="fa-solid fa-trash-can"></i></button>
-                                            </form>
-                                        </li>
 
-                                        <% } %>
                                 </ul>
 
 
