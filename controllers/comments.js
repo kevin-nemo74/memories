@@ -11,7 +11,7 @@ module.exports.postComment = async (req, res) => {
     let datetime = currentdate.getDate() + "/"
         + (currentdate.getMonth() + 1)
         + " "
-        + currentdate.getHours() + ":"
+        + currentdate.getHours() + 1 + ":"
         + currentdate.getMinutes()
         ;
 
