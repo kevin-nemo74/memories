@@ -10,6 +10,11 @@
             <% for(let camp of posts){ %>
                 <div class='card col-md-4 my-4 mx-auto' style="width: 20rem; text-align: center; align-items: center;"
                     id="card">
+                    <div class="col-md-4">
+                        <%if(camp.images.length) {%>
+                            <img class="img-fluid" alt="" src="<%=camp.images[0].url%>">
+                            <% } %>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">
                             To : <%= camp.title %>
