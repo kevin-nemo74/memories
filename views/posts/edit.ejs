@@ -3,7 +3,8 @@
     <div class="row">
         <h1 class="text-center">Edit Memory</h1>
         <div class="col-md-6 offset-md-3">
-            <form action="/posts/<%=post._id%>/edit" method="POST" novalidate class="validated-form">
+            <form action="/posts/<%=post._id%>/edit" method="POST" novalidate class="validated-form"
+                enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="title">Title : </label>
                     <input class="form-control" type="text" name="title" id="title" value="<%=post.title%>" required>
@@ -15,6 +16,17 @@
                 <div class="mb-3">
                     <label class="form-label" for="body">body : </label>
                     <textarea class="form-control" type="text" name="body" id="body" required><%=post.body%></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="img">img : </label>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="inputGroupFile02" name="img" multiple>
+                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                    </div>
                     <div class="valid-feedback">
                         Looks good!
                     </div>

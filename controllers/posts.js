@@ -1,6 +1,7 @@
 let Post = require('../models/posts');
 let User = require('../models/users');
 let { isLoggedIn } = require('../middleware');
+let { cloudinary } = require('../cloudinary');
 
 
 
@@ -33,10 +34,11 @@ module.exports.newPostForm = async (req, res) => {
 
 module.exports.postNewPost = async (req, res, next) => {
     let { title, body } = req.body;
-    console.log(req)
+    let imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     let newPost = new Post({
         title: title,
         body: body,
+        images: imgs,
         author: req.user._id,
         privacy: req.body.privacy
     });
@@ -74,6 +76,7 @@ module.exports.editForm = async (req, res) => {
 module.exports.postEdittedPost = async (req, res) => {
     const { id } = req.params;
     const post = await Post.findById(id);
+    let imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
 
     let { title, body, privacy } = req.body;
     let update = {
@@ -84,7 +87,18 @@ module.exports.postEdittedPost = async (req, res) => {
         }
     }
     await Post.updateOne({ _id: id }, update, { runValidators: true });
+    post.images.push(...imgs);
     await post.save();
+    if (req.body.deleteImages) {
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        await post.updateOne({
+            $pull: {
+                images: { filename: { $in: req.body.deleteImages } }
+            }
+        })
+    }
 
     req.flash('success', 'Successfully updated');
     res.redirect(`/posts/${id}`);

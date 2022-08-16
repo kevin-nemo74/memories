@@ -6,18 +6,23 @@ let ExpressError = require('../utils/ExpressError');
 let posts = require('../controllers/posts');
 let { isLoggedIn, validatepost, isAuthor } = require('../middleware');
 
+let multer = require('multer');
+let { storage } = require('../cloudinary');
+let upload = multer({ storage });
+
+
 
 router.get('/', catchAsync(posts.index));
 
 router.get('/new', isLoggedIn, catchAsync(posts.newPostForm));
 
-router.post('/new', isLoggedIn, validatepost, catchAsync(posts.postNewPost));
+router.post('/new', isLoggedIn, upload.array('img'), validatepost, catchAsync(posts.postNewPost));
 
 router.get('/:id', catchAsync(posts.showPostPage));
 
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(posts.editForm));
 
-router.post('/:id/edit', isLoggedIn, isAuthor, catchAsync(posts.postEdittedPost));
+router.post('/:id/edit', isLoggedIn, upload.array('img'), isAuthor, catchAsync(posts.postEdittedPost));
 
 router.get('/:id/memories', isLoggedIn, catchAsync(posts.getMyMemories));
 

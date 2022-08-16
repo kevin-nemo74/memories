@@ -3,7 +3,7 @@
     <div class="row">
         <h1 class="text-center">New Memory</h1>
         <div class="col-md-6 offset-md-3">
-            <form action="/posts/new" method="POST" class="validated-form" novalidate>
+            <form action="/posts/new" method="POST" class="validated-form" novalidate enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="title">To : </label>
                     <input class="form-control" type="text" name="title" id="title" required>
@@ -18,6 +18,11 @@
                     <div class="valid-feedback">
                         Looks good!
                     </div>
+                </div>
+                <label class="form-label" for="img">img : </label>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="inputGroupFile02" name="img" required multiple>
+                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
                 </div>
 
                 <div class="mb-3">
