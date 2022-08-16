@@ -27,7 +27,7 @@ const commentsRoute = require('./routes/comments');
 const userRoutes = require('./routes/user');
 // mongodb://localhost:27017/thoughtsCamp
 
-mongoose.connect(dbUrl, { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/thoughtsCamp', { useNewUrlParser: true })
     .then(() => {
         console.log('database connected!! ');
     })

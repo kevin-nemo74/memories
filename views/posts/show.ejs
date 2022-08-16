@@ -59,7 +59,7 @@
                                     <li class="list-group-item text-muted">
                                         <%=rev.time%>
                                             <% if(currentUser && rev.author.equals(currentUser._id)) {%>
-                                                <form class="form-inline"
+                                                <form class="row-cols"
                                                     action="/posts/<%=post._id%>/comment/<%=rev._id%>?_method=DELETE"
                                                     method="post">
                                                     <button style="float: right;" class="btn btn-sm btn-danger"><i

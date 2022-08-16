@@ -7,19 +7,22 @@ let { isLoggedIn } = require('../middleware');
 module.exports.index = async (req, res) => {
 
     let posts = await Post.find({}).populate('author');
+    let friendsPosts = [];
+
 
     if (req.isAuthenticated()) {
         let signedInUser = await User.findByUsername(req.session.passport.user);
         for (let i = 0; i < posts.length; i++) {
-            if (posts[i].privacy == 'friends' && !signedInUser.friends.includes(posts[i].author._id)) {
-                posts.splice(i, 1);
+            if ((posts[i].privacy === 'friends' && signedInUser.friends.includes(posts[i].author._id)) || (posts[i].privacy == 'public')) {
+                friendsPosts.push(posts[i]);
             }
         }
+        return res.render('posts/index', { posts: friendsPosts });
     }
     else {
         posts = await Post.find({ privacy: 'public' }).populate('author');
+        return res.render('posts/index', { posts });
     }
-    res.render('posts/index', { posts });
 }
 
 
@@ -30,7 +33,7 @@ module.exports.newPostForm = async (req, res) => {
 
 module.exports.postNewPost = async (req, res, next) => {
     let { title, body } = req.body;
-
+    console.log(req)
     let newPost = new Post({
         title: title,
         body: body,

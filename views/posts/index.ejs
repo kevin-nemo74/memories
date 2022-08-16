@@ -5,17 +5,6 @@
 
     <h1 style="text-align: center;">All posts</h1>
 
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-11">
-                <form class="d-flex mx-auto mt-4" role="search">
-                    <input class="form-control me-2" id="searchInput" type="search" placeholder="Search"
-                        aria-label="Search" onsubmit="sendData(this)">
-
-                </form>
-            </div>
-        </div>
-    </div> -->
     <div class="mb-3">
         <div class="row">
             <% for(let camp of posts){ %>
@@ -51,17 +40,6 @@
             const classe = `border-${colors[rn]}`;
             card[i].classList.add(classe);
         }
-
-        // function sendData(e) {
-        //     fetch('getPosts', {
-        //         method: "POST",
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({ payload: e.value })
-        //     })
-
-
-        // }
-
 
 
     </script>
